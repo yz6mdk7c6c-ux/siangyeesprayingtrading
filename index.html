@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>祥艺喷漆车厂 Siang Yee Spraying Trading</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#0b0c0f;color:#f7f7f7}a{text-decoration:none;color:inherit}
+.nav{position:fixed;top:0;width:100%;z-index:20;background:#0b0c0fee;border-bottom:1px solid #24262b}
+.navin{max-width:1100px;margin:auto;padding:10px 20px;display:flex;align-items:center;gap:14px}
+.logo{font-weight:800;font-size:14px;display:flex;flex-direction:column;gap:5px;min-width:0;cursor:pointer}
+.logo i{color:#d8ad58;font-style:normal}
+.signboard-wrap{position:relative;display:none}
+.signboard{height:42px;max-width:180px;object-fit:contain;border-radius:5px;display:block}
+.sign-edit{position:absolute;top:-6px;right:-6px;width:22px;height:22px;border-radius:50%;background:#d8ad58;color:#111;border:0;font-size:14px;font-weight:900;cursor:pointer;line-height:22px;padding:0;display:none}
+.sign-edit.on{display:block}
+.links{display:flex;gap:20px;font-size:14px;color:#ccc;margin-left:auto}
+.links a:hover{color:#d8ad58}
+.lang{display:flex;gap:6px}
+.lang-btn{background:#15171b;color:#ccc;border:1px solid #383b42;border-radius:6px;padding:6px 10px;font-size:12px;cursor:pointer;font-weight:700;font-family:inherit}
+.lang-btn.on{background:#d8ad58;color:#111;border-color:#d8ad58}
+@media(max-width:760px){.links{display:none}.lang{margin-left:auto}.logo{font-size:12px}.signboard{height:34px;max-width:130px}}
+.toolbar{position:fixed;top:60px;right:12px;z-index:25;display:flex;gap:6px}
+.tool-btn{background:#15171b;color:#d8ad58;border:1px solid #d8ad58;border-radius:8px;padding:8px 12px;font-size:12px;cursor:pointer;font-weight:700;font-family:inherit}
+.tool-btn:hover{background:#d8ad58;color:#111}
+.hero{min-height:700px;padding:160px 20px 80px;background:radial-gradient(circle at 78% 35%,#d8ad5830,transparent 18%),linear-gradient(120deg,#06070a,#101217 55%,#1b1d21);display:flex;align-items:center}
+.wrap{max-width:1100px;margin:auto;width:100%}
+.tag{color:#d8ad58;font-weight:bold;letter-spacing:2px;font-size:13px}
+.hero h1{font-size:clamp(40px,7.4vw,78px);line-height:1.02;margin:18px 0}.hero h1 span{color:#d8ad58}
+.hero p{color:#aeb2bb;font-size:17px;max-width:650px;line-height:1.8}
+.buttons{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}
+.btn{padding:13px 20px;border:1px solid #3a3d44;border-radius:8px;font-weight:bold;display:inline-block}
+.gold{background:#d8ad58;color:#111;border-color:#d8ad58}.btn:hover{border-color:#d8ad58}
+.stats{display:flex;gap:32px;margin-top:44px;flex-wrap:wrap}.stats b{font-size:24px}.stats small{display:block;color:#999}
+.section{padding:70px 20px}.section h2{font-size:34px;margin:0 0 10px}
+.sub{color:#999;max-width:680px;margin-bottom:28px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.card{background:#15171b;border:1px solid #292c32;border-radius:14px;padding:26px}
+.card .ico{font-size:30px}.card h3{margin:16px 0 8px}.card p{color:#999;margin:0;line-height:1.7}
+.footer{border-top:1px solid #24262b;padding:25px;text-align:center;color:#777;font-size:13px}
+.case-gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:20px}
+.case-slot{position:relative;background:#111318;border:1px dashed #282b31;border-radius:16px;overflow:hidden;min-height:240px;display:flex;align-items:center;justify-content:center}
+.case-slot img{width:100%;height:240px;object-fit:cover;display:block}
+.case-slot .empty{color:#666;font-size:13px;text-align:center;padding:20px}
+.case-slot .uploader{position:absolute;inset:0;opacity:0;cursor:pointer;z-index:3}
+.case-label{position:absolute;bottom:0;left:0;right:0;background:#0b0c0fdd;color:#d8ad58;padding:8px;font-size:12px;text-align:center;font-weight:700;pointer-events:none}
+.case-slot.has-photo::after{content:"✏️";position:absolute;top:8px;right:8px;background:#0b0c0fcc;color:#d8ad58;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;pointer-events:none}
+.bulk-gallery{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:18px}
+.bulk-gallery img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:10px;background:#111318}
+.loading{grid-column:1/-1;text-align:center;color:#888;padding:30px;font-size:14px}
+.bulk-upload-wrap{margin-top:22px;text-align:center;position:relative}
+.bulk-upload{display:none;align-items:center;justify-content:center;padding:14px 22px;border:1px solid #d8ad5888;border-radius:10px;cursor:pointer;font-weight:700;color:#d8ad58;background:#15171b}
+.bulk-upload:hover{background:#d8ad58;color:#111}
+.contact{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.box{background:#15171b;border:1px solid #292c32;border-radius:14px;padding:26px}
+.row{padding:14px 0;border-bottom:1px solid #292c32}.row:last-child{border:0}
+.label{font-size:11px;color:#858993;letter-spacing:1px}.value{margin-top:5px}
+.map{min-height:380px;padding:0;overflow:hidden}.map iframe{width:100%;height:100%;min-height:380px;border:0}
+.modal{display:none;position:fixed;inset:0;background:#000c;z-index:100;align-items:center;justify-content:center;padding:20px}
+.modal.on{display:flex}
+.modal-box{background:#15171b;border:1px solid #d8ad58;border-radius:16px;padding:26px;max-width:420px;width:100%}
+.modal-box h3{margin:0 0 12px;color:#d8ad58}
+.modal-box input{width:100%;padding:12px;background:#0b0c0f;border:1px solid #3a3d44;border-radius:8px;color:#fff;font-family:inherit;font-size:13px;margin-bottom:12px}
+.modal-box p{color:#999;font-size:12px;line-height:1.6;margin:0 0 12px}
+.modal-box .btns{display:flex;gap:10px;justify-content:flex-end}
+.modal-box button{padding:10px 18px;border-radius:8px;font-weight:700;font-family:inherit;cursor:pointer;border:1px solid #3a3d44;background:#0b0c0f;color:#ccc}
+.modal-box .primary{background:#d8ad58;color:#111;border-color:#d8ad58}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#15171b;border:1px solid #d8ad58;color:#d8ad58;padding:12px 22px;border-radius:10px;font-size:14px;font-weight:700;z-index:200;display:none}
+.toast.on{display:block}
+@media(max-width:800px){.grid,.contact{grid-template-columns:1fr}.case-gallery{grid-template-columns:repeat(2,1fr)}.bulk-gallery{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:480px){.case-gallery{grid-template-columns:1fr 1fr}.bulk-gallery{grid-template-columns:repeat(2,1fr)}.case-slot{min-height:180px}.case-slot img{height:180px}}
+</style>
+</head>
+<body>
+
+<div class="toolbar" id="toolbar" style="display:none">
+  <button class="tool-btn" id="btnLogout" type="button">🚪 退出</button>
+</div>
+
+<nav class="nav"><div class="navin">
+  <div class="logo" id="logoBox">
+    <div class="signboard-wrap" id="signWrap">
+      <img class="signboard" id="signImg" alt="招牌"/>
+      <button class="sign-edit" id="signEdit" type="button" title="更换招牌">+</button>
+      <input class="uploader" id="signInput" type="file" accept="image/*" style="position:absolute;inset:0;opacity:0;cursor:pointer"/>
+    </div>
+    <span id="logoText">祥艺喷漆车厂 <i>SIANG YEE</i></span>
+  </div>
+  <div class="links">
+    <a href="#services" id="nav1">服务项目</a>
+    <a href="#work" id="nav2">维修案例</a>
+    <a href="#contact" id="nav3">联系我们</a>
+  </div>
+  <div class="lang">
+    <button class="lang-btn on" data-lang="zh" type="button">中文</button>
+    <button class="lang-btn" data-lang="ms" type="button">BM</button>
+  </div>
+</div></nav>
+
+<header class="hero"><div class="wrap">
+  <div class="tag" id="heroTag">祥艺喷漆车厂 · JENJAROM</div>
+  <h1 id="heroH1">让您的爱车<br/><span>恢复原本应有的状态。</span></h1>
+  <p id="heroP">🔥 汽车喷漆 / 钣金修复 / 车身改色<br/>✅ 30年经验 · 价格实惠 · 质量耐用10年<br/>📍 服务：雪兰莪 &amp; 瓜拉冷岳<br/><b style="color:#d8ad58">车辆需送到 Jenjarom 车厂，不提供上门服务。</b></p>
+  <div class="buttons">
+    <a class="btn gold" href="https://wa.me/60172852528" target="_blank" id="btnWa">WhatsApp 询价</a>
+    <a class="btn" href="https://maps.app.goo.gl/apZvaRHLNLUzcTfH7?g_st=ic" target="_blank">Google 地图</a>
+  </div>
+  <div class="stats">
+    <div><b>5.0★</b><small id="st1">Google 评分</small></div>
+    <div><b>30</b><small id="st2">年经验</small></div>
+    <div><b>017-285 2528</b><small id="st3">电话 / WhatsApp</small></div>
+  </div>
+</div></header>
+
+<section class="section" id="services"><div class="wrap">
+  <h2 id="svcH2">服务项目</h2>
+  <p class="sub" id="svcSub">从小刮痕到事故造成的车身损坏，先修车身，再喷漆与表面处理。</p>
+  <div class="grid" id="svcGrid"></div>
+</div></section>
+
+<section class="section" id="work"><div class="wrap">
+  <h2 id="workH2">真实维修案例</h2>
+  <p class="sub" id="workSub">以下是我们的真实维修照片（点照片可更换，仅店主可见）。</p>
+  <div class="case-gallery" id="caseGallery"></div>
+  <div class="bulk-upload-wrap">
+    <label class="bulk-upload" id="bulkLabel" for="bulkInput">＋ 一次加多张维修照片</label>
+    <input id="bulkInput" type="file" accept="image/*" multiple style="position:absolute;width:1px;height:1px;opacity:0"/>
+  </div>
+  <div class="bulk-gallery" id="bulkGallery"></div>
+</div></section>
+
+<section class="section" id="contact"><div class="wrap">
+  <h2 id="contactH2">联系我们</h2>
+  <div class="contact">
+    <div class="box">
+      <div class="row"><div class="label">ADDRESS</div><div class="value">Lot 458-H, Batu 14 1/2, Jalan Klang Banting, 42610 Jenjarom, Selangor</div></div>
+      <div class="row"><div class="label">WHATSAPP</div><div class="value"><a href="tel:+60172852528">017-285 2528</a></div></div>
+      <div class="buttons">
+        <a class="btn gold" href="https://wa.me/60172852528" target="_blank">WhatsApp</a>
+        <a class="btn" href="https://maps.app.goo.gl/apZvaRHLNLUzcTfH7?g_st=ic" target="_blank">Google Maps</a>
+      </div>
+    </div>
+    <div class="box map"><iframe loading="lazy" src="https://www.google.com/maps?q=Lot%20458-H,%20Batu%2014%201/2,%20Jalan%20Klang%20Banting,%2042610%20Jenjarom,%20Selangor&amp;output=embed"></iframe></div>
+  </div>
+</div></section>
+
+<footer class="footer" id="footer">© 2026 祥艺喷漆车厂 Siang Yee Spraying Trading · Jenjarom</footer>
+
+<div class="modal" id="tokenModal">
+  <div class="modal-box">
+    <h3>🔐 店主登录</h3>
+    <p>粘贴你的 GitHub Token（以 ghp_ 开头）。只有你能上传照片，顾客看不到这个。</p>
+    <input id="tokenInput" type="password" placeholder="ghp_xxxxxxxxxxxx" autocomplete="off"/>
+    <p>💡 Token 只存在你自己手机，不会泄露给顾客。</p>
+    <div class="btns">
+      <button type="button" id="btnCancel">取消</button>
+      <button type="button" class="primary" id="btnSaveToken">保存</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+  'use strict';
+
+  var OWNER = 'yz6mdk7c6c-ux';
+  var REPO = 'siangyeesprayingtrading';
+  var BRANCH = 'main';
+  var FOLDER = 'photos';
+  var BASE = 'https://' + OWNER + '.github.io/' + REPO + '/photos/';
+  var API = 'https://api.github.com/repos/' + OWNER + '/' + REPO + '/contents/';
+  var TOKEN_KEY = 'sy_gh_token';
+  var CASE_NAMES = ['case1.jpg','case2.jpg','case3.jpg','case4.jpg'];
+  var SIGN_NAME = 'signboard.jpg';
+
+  var token = '';
+  var isOwner = false;
+  var photoUrls = {};
+  var currentLang = 'zh';
+
+  function toast(msg, ms){
+    var t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('on');
+    clearTimeout(t._t);
+    t._t = setTimeout(function(){ t.classList.remove('on'); }, ms || 2200);
+  }
+
+  function fileToBase64(file){
+    return new Promise(function(res, rej){
+      var r = new FileReader();
+      r.onload = function(){ res(r.result.split(',')[1]); };
+      r.onerror = rej;
+      r.readAsDataURL(file);
+    });
+  }
+
+  async function ghUpload(file, filename){
+    if (!token) throw new Error('未登录');
+    var path = FOLDER + '/' + filename;
+    var url = API + encodeURIComponent(path);
+    var sha = null;
+    try {
+      var chk = await fetch(url + '?ref=' + BRANCH, {
+        headers: { 'Authorization': 'token ' + token }
+      });
+      if (chk.ok){ var d = await chk.json(); sha = d.sha; }
+    } catch(e){}
+    var body = {
+      message: 'Upload ' + filename,
+      content: await fileToBase64(file),
+      branch: BRANCH
+    };
+    if (sha) body.sha = sha;
+    var res = await fetch(url, {
+      method: 'PUT',
+      headers: { 'Authorization': 'token ' + token, 'Content-Type': 'application/json' },
+      body: JSON.stringify(body)
+    });
+    if (!res.ok){
+      var err = await res.text();
+      throw new Error('上传失败: ' + res.status);
+    }
+    return true;
+  }
+
+  function enterOwnerMode(){
+    isOwner = true;
+    document.getElementById('toolbar').style.display = 'flex';
+    document.getElementById('signWrap').style.display = 'block';
+    document.getElementById('signEdit').classList.add('on');
+    document.getElementById('bulkLabel').style.display = 'inline-flex';
+    renderAll();
+  }
+
+  function exitOwnerMode(){
+    isOwner = false;
+    document.getElementById('toolbar').style.display = 'none';
+    document.getElementById('signEdit').classList.remove('on');
+    document.getElementById('bulkLabel').style.display = 'none';
+    renderAll();
+  }
+
+  function loadSignboard(){
+    var test = new Image();
+    test.onload = function(){
+      document.getElementById('signImg').src = test.src;
+      document.getElementById('signWrap').style.display = 'block';
+    };
+    test.src = BASE + SIGN_NAME + '?t=' + Date.now();
+  }
+
+  document.getElementById('signInput').addEventListener('change', async function(e){
+    var f = e.target.files[0];
+    if (!f || !token) return;
+    toast('上传中...');
+    try {
+      await ghUpload(f, SIGN_NAME);
+      toast('✅ 招牌已更新');
+      document.getElementById('signImg').src = BASE + SIGN_NAME + '?t=' + Date.now();
+      document.getElementById('signWrap').style.display = 'block';
+    } catch(err){ toast('❌ ' + err.message); }
+    e.target.value = '';
+  });
+
+  function attachCaseUploads(){
+    document.querySelectorAll('.case-upload-input').forEach(function(input){
+      input.addEventListener('change', async function(e){
+        var f = e.target.files[0];
+        if (!f || !token) return;
+        var idx = parseInt(input.getAttribute('data-idx'), 10);
+        var fname = CASE_NAMES[idx];
+        toast('上传中...');
+        try {
+          await ghUpload(f, fname);
+          toast('✅ 已更新');
+          document.querySelectorAll('.case-slot[data-idx="' + idx + '"] img').forEach(function(img){
+            img.src = BASE + fname + '?t=' + Date.now();
+          });
+          document.querySelectorAll('.case-slot[data-idx="' + idx + '"]').forEach(function(s){
+            s.classList.add('has-photo');
+          });
+        } catch(err){ toast('❌ ' + err.message); }
+        e.target.value = '';
+      });
+    });
+  }
+
+  document.getElementById('bulkInput').addEventListener('change', async function(e){
+    var files = Array.prototype.slice.call(e.target.files).filter(function(f){
+      return f.type.indexOf('image/') === 0;
+    });
+    if (!files.length || !token) return;
+    toast('上传 ' + files.length + ' 张中...');
+    var ok = 0, fail = 0;
+    for (var i = 0; i < files.length; i++){
+      var name = 'wall-' + Date.now() + '-' + i + '.jpg';
+      try { await ghUpload(files[i], name); ok++; } catch(err){ fail++; }
+    }
+    toast('✅ 成功 ' + ok + (fail ? ' · 失败 ' + fail : ''));
+    loadPhotos();
+    e.target.value = '';
+  });
+
+  var TEXT = {
+    zh: {
+      logo:'祥艺喷漆车厂 <i>SIANG YEE</i>',
+      nav1:'服务项目', nav2:'维修案例', nav3:'联系我们',
+      heroTag:'祥艺喷漆车厂 · JENJAROM',
+      heroH1:'让您的爱车<br/><span>恢复原本应有的状态。</span>',
+      heroP:'🔥 汽车喷漆 / 钣金修复 / 车身改色<br/>✅ 30年经验 · 价格实惠 · 质量耐用10年<br/>📍 服务：雪兰莪 &amp; 瓜拉冷岳<br/><b style="color:#d8ad58">车辆需送到 Jenjarom 车厂，不提供上门服务。</b>',
+      wa:'WhatsApp 询价',
+      st1:'Google 评分', st2:'年经验', st3:'电话 / WhatsApp',
+      svcH2:'服务项目',
+      svcSub:'从小刮痕到事故造成的车身损坏，先修车身，再喷漆与表面处理。',
+      svc:[
+        {i:'🎨',h:'汽车喷漆',p:'局部喷漆、单片车身喷漆及颜色配对。'},
+        {i:'🔧',h:'钣金 / 车身维修',p:'修复凹陷、事故损伤及车身变形。'},
+        {i:'✨',h:'刮痕 / 局部修复',p:'适合刮痕、掉漆及局部小损伤。'}
+      ],
+      workH2:'真实维修案例',
+      workSub:'以下是我们的真实维修照片（点照片可更换，仅店主可见）。',
+      contactH2:'联系我们',
+      footer:'© 2026 祥艺喷漆车厂 Siang Yee Spraying Trading · Jenjarom',
+      labels:['维修前','维修过程','喷漆后','完工'],
+      empty:'点这里上传照片',
+      loading:'照片加载中...',
+      bulkLabel:'＋ 一次加多张维修照片',
+      doc:'zh-CN'
+    },
+    ms: {
+      logo:'SIANG YEE <i>SPRAYING TRADING</i>',
+      nav1:'Perkhidmatan', nav2:'Hasil Kerja', nav3:'Hubungi',
+      heroTag:'SIANG YEE SPRAYING TRADING · JENJAROM',
+      heroH1:'Kembalikan kereta anda<br/><span>kepada keadaan yang sepatutnya.</span>',
+      heroP:'🔥 Cat Kereta / Ketuk Badan / Tukar Warna<br/>✅ 30 Tahun Pengalaman · Harga Murah · Kualiti Tahan 10 Tahun<br/>📍 Selangor &amp; Kuala Langat<br/><b style="color:#d8ad58">Kenderaan perlu dihantar ke bengkel Jenjarom.</b>',
+      wa:'WhatsApp Tanya Harga',
+      st1:'Penilaian Google', st2:'Tahun Pengalaman', st3:'Telefon / WhatsApp',
+      svcH2:'Perkhidmatan Kami',
+      svcSub:'Daripada calar kecil hingga kerosakan badan, kami baiki badan dahulu sebelum mengecat.',
+      svc:[
+        {i:'🎨',h:'Cat Kereta',p:'Cat setempat, satu panel dan padanan warna.'},
+        {i:'🔧',h:'Ketuk / Baiki Badan',p:'Baiki kemek, kesan kemalangan dan bentuk badan.'},
+        {i:'✨',h:'Baiki Calar',p:'Sesuai untuk calar, cat mengelupas dan kerosakan kecil.'}
+      ],
+      workH2:'Hasil Kerja Sebenar',
+      workSub:'Foto kerja sebenar kami (ketik foto untuk tukar, hanya pemilik nampak).',
+      contactH2:'Hubungi Kami',
+      footer:'© 2026 Siang Yee Spraying Trading · Jenjarom',
+      labels:['Sebelum','Proses','Selepas Cat','Hasil Siap'],
+      empty:'Ketik untuk upload foto',
+      loading:'Memuatkan foto...',
+      bulkLabel:'＋ Tambah banyak foto',
+      doc:'ms-MY'
+    }
+  };
+
+  function setLang(lang){
+    currentLang = lang;
+    var T = TEXT[lang];
+    document.documentElement.lang = T.doc;
+    document.title = lang === 'zh' ? '祥艺喷漆车厂 Siang Yee Spraying Trading' : 'Siang Yee Spraying Trading';
+    document.getElementById('logoText').innerHTML = T.logo;
+    document.getElementById('nav1').textContent = T.nav1;
+    document.getElementById('nav2').textContent = T.nav2;
+    document.getElementById('nav3').textContent = T.nav3;
+    document.getElementById('heroTag').textContent = T.heroTag;
+    document.getElementById('heroH1').innerHTML = T.heroH1;
+    document.getElementById('heroP').innerHTML = T.heroP;
+    document.getElementById('btnWa').textContent = T.wa;
+    document.getElementById('st1').textContent = T.st1;
+    document.getElementById('st2').textContent = T.st2;
+    document.getElementById('st3').textContent = T.st3;
+    document.getElementById('svcH2').textContent = T.svcH2;
+    document.getElementById('svcSub').textContent = T.svcSub;
+    document.getElementById('workH2').textContent = T.workH2;
+    document.getElementById('workSub').textContent = T.workSub;
+    document.getElementById('contactH2').textContent = T.contactH2;
+    document.getElementById('footer').textContent = T.footer;
+    document.getElementById('bulkLabel').textContent = T.bulkLabel;
+    document.getElementById('svcGrid').innerHTML = T.svc.map(function(s){
+      return '<div class="card"><div class="ico">'+s.i+'</div><h3>'+s.h+'</h3><p>'+s.p+'</p></div>';
+    }).join('');
+    document.querySelectorAll('.lang-btn').forEach(function(b){
+      b.classList.toggle('on', b.getAttribute('data-lang') === lang);
+    });
+    renderAll();
+    try { localStorage.setItem('syLang', lang); } catch(e){}
+  }
+
+  document.querySelectorAll('.lang-btn').forEach(function(b){
+    b.addEventListener('click', function(){
+      setLang(b.getAttribute('data-lang'));
+      window.scrollTo({top:0, behavior:'smooth'});
+    });
+  });
+
+  function renderAll(){
+    var T = TEXT[currentLang];
+    var gallery = document.getElementById('caseGallery');
+    var html = '';
+    for (var i = 0; i < 4; i++){
+      var url = photoUrls['case' + (i+1)] || '';
+      html += '<div class="case-slot' + (url ? ' has-photo' : '') + '" data-idx="' + i + '">';
+      if (url){
+        html += '<img src="' + url + '" alt="' + T.labels[i] + '"/>';
+      } else {
+        html += '<div class="empty">📷<br>' + (isOwner ? '点这里上传照片' : T.empty) + '</div>';
+      }
+      if (isOwner){
+        html += '<input type="file" class="uploader case-upload-input" data-idx="' + i + '" accept="image/*"/>';
+      }
+      html += '<div class="case-label">' + T.labels[i] + '</div>';
+      html += '</div>';
+    }
+    gallery.innerHTML = html;
+
+    var bulk = document.getElementById('bulkGallery');
+    if (!photoUrls.wall || !photoUrls.wall.length){
+      bulk.innerHTML = '<div class="loading">' + (isOwner ? '还没上传照片，点上面按钮上传吧' : T.loading) + '</div>';
+    } else {
+      bulk.innerHTML = photoUrls.wall.map(function(u){
+        return '<img src="' + u + '" alt="案例" loading="lazy"/>';
+      }).join('');
+    }
+    if (isOwner) attachCaseUploads();
+  }
+
+  async function loadPhotos(){
+    var result = { wall: [] };
+    try {
+      var res = await fetch(API + FOLDER + '?t=' + Date.now(), {cache:'no-store'});
+      if (res.ok){
+        var files = await res.json();
+        if (Array.isArray(files)){
+          var imgs = files.filter(function(f){
+            return f.type === 'file' && /\.(jpe?g|png|gif|webp|bmp)$/i.test(f.name)
+              && CASE_NAMES.indexOf(f.name.toLowerCase()) === -1
+              && f.name.toLowerCase() !== SIGN_NAME;
+          }).sort(function(a, b){
+            return b.name.localeCompare(a.name, undefined, {numeric:true});
+          });
+          result.wall = imgs.map(function(f){
+            return BASE + encodeURIComponent(f.name) + '?t=' + Date.now();
+          });
+        }
+      }
+    } catch(e){}
+
+    var checks = await Promise.all(CASE_NAMES.map(function(n){
+      return new Promise(function(resolve){
+        var img = new Image();
+        img.onload = function(){ resolve(BASE + n + '?t=' + Date.now()); };
+        img.onerror = function(){ resolve(''); };
+        img.src = BASE + n + '?t=' + Date.now();
+      });
+    }));
+    for (var j = 0; j < 4; j++){
+      if (checks[j]) result['case' + (j+1)] = checks[j];
+    }
+    photoUrls = result;
+    renderAll();
+  }
+
+  function openTokenModal(){ document.getElementById('tokenModal').classList.add('on'); }
+  function closeTokenModal(){ document.getElementById('tokenModal').classList.remove('on'); }
+
+  document.getElementById('btnCancel').addEventListener('click', closeTokenModal);
+  document.getElementById('btnSaveToken').addEventListener('click', function(){
+    var v = document.getElementById('tokenInput').value.trim();
+    if (!v || (v.indexOf('ghp_') !== 0 && v.indexOf('github_pat_') !== 0)){
+      toast('Token 不对，应以 ghp_ 开头');
+      return;
+    }
+    token = v;
+    try { localStorage.setItem(TOKEN_KEY, token); } catch(e){}
+    closeTokenModal();
+    enterOwnerMode();
+    toast('✅ 已进入店主模式');
+  });
+
+  document.getElementById('btnLogout').addEventListener('click', function(){
+    try { localStorage.removeItem(TOKEN_KEY); } catch(e){}
+    token = '';
+    exitOwnerMode();
+    toast('已退出');
+  });
+
+  loadSignboard();
+
+  try { token = localStorage.getItem(TOKEN_KEY) || ''; } catch(e){}
+  if (token) enterOwnerMode();
+
+  var logoTap = document.getElementById('logoBox');
+  var tapCount = 0, tapTimer;
+  logoTap.addEventListener('click', function(){
+    tapCount++;
+    clearTimeout(tapTimer);
+    if (tapCount >= 5){ tapCount = 0; openTokenModal(); return; }
+    tapTimer = setTimeout(function(){ tapCount = 0; }, 1500);
+  });
+  if (location.search.indexOf('owner=1') !== -1) openTokenModal();
+
+  var savedLang = 'zh';
+  try { savedLang = localStorage.getItem('syLang') || 'zh'; } catch(e){}
+  setLang(savedLang);
+  loadPhotos();
+})();
+</script>
+</body>
+</html>
